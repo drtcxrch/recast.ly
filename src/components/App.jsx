@@ -3,6 +3,24 @@ import exampleVideoData from '../data/exampleVideoData.js';
 import VideoPlayer from './VideoPlayer.js';
 
 class App extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      allVideos: exampleVideoData,
+      currentVideo: exampleVideoData[0]
+    };
+
+    this.toggleClick = this.toggleClick.bind(this);
+  }
+
+  toggleClick (video) {
+    this.setState({
+      currentVideo: video
+    });
+  }
+
+
+
   render() {
     return (
       <div>
@@ -13,10 +31,10 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><VideoPlayer video={exampleVideoData[0]}/></div>
+            <div><VideoPlayer video={this.state.currentVideo}/></div>
           </div>
           <div className="col-md-5">
-            <div><VideoList videos={exampleVideoData}/></div>
+            <div><VideoList videos={this.state.allVideos} toggleClick={this.toggleClick}/></div>
           </div>
         </div>
       </div>
@@ -24,6 +42,9 @@ class App extends React.Component {
   }
 }
 
+// Initialize the state of App to keep track of all the videos
+// in the video list and the current video in the player.
+// Pass this state down as props to its children components. Continue to use the example data.
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined

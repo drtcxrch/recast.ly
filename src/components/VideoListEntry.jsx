@@ -1,11 +1,11 @@
 var VideoListEntry = (props) => (
   <div className="video-list-entry media">
     <div className="media-left media-middle">
-      <img className="media-object" src={props.testData.snippet.thumbnails.high.url} width={props.testData.snippet.thumbnails.default.width} height={props.testData.snippet.thumbnails.default.height} alt=""/>
+      <img className="media-object" src={props.video.snippet.thumbnails.default.url} width={props.video.snippet.thumbnails.default.width} height={props.video.snippet.thumbnails.default.height} alt=""/>
     </div>
     <div className="media-body">
-      <div className="video-list-entry-title">{props.testData.snippet.title}</div>
-      <div className="video-list-entry-detail">{props.testData.snippet.description}</div>
+      <div onClick={() => props.toggleClick(props.video)} className="video-list-entry-title">{props.video.snippet.title}</div>
+      <div className="video-list-entry-detail">{props.video.snippet.description}</div>
     </div>
   </div>
 );
