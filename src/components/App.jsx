@@ -2,7 +2,6 @@ import VideoList from './VideoList.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import VideoPlayer from './VideoPlayer.js';
 import Search from './Search.js';
-import searchYoutube from '../lib/searchYouTube.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
 
 
@@ -16,6 +15,43 @@ class App extends React.Component {
     };
 
     this.toggleClick = this.toggleClick.bind(this);
+    this.videoListUpdater = this.videoListUpdater.bind(this);
+  }
+
+  componentDidMount() {
+    this.videoListUpdater('are cats better than dogs');
+  }
+
+  // videoListUpdater (text) {
+  //   var dataForHomePage = function (callback = () => { })  {
+  //      return (
+  //        searchYouTube({key: 'AIzaSyB6NNEJunt9rCC9A7t2MZmJbTWwyDCIONQ', query: text, max: 10}, (dataForHomePage) => dataForHomePage)
+  //      )
+  //      callback()
+  //   }
+  //      setTimeout(() => {this.setState({
+  //        allVideos: dataForHomePage,
+  //        currentVideo: dateForHomePage[0]
+  //       })}, 5000)
+  //     }
+  // }
+
+  videoListUpdater (text) {
+    var dataForHomePage;
+
+    this.props.searchYouTube({ key: 'AIzaSyCa_Wy-nLb23Yf4G3U5TkJacUYK2-PK3js', query: text, max: 10}, (video) => {
+      dataForHomePage = video;
+      this.setState({
+        allVideos: dataForHomePage,
+        currentVideo: dataForHomePage[0]
+      });
+    });
+
+  //   setTimeout(() => {this.setState({
+  //     allVideos: dataForHomePage,
+  //     currentVideo: dateForHomePage[0]
+  //    })}, 500)
+  //  };
   }
 
   toggleClick (video) {
@@ -24,14 +60,12 @@ class App extends React.Component {
     });
   }
 
-
-
   render() {
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><Search search={searchYoutube}/></div>
+            <div><Search search={this.props.searchYouTube}/></div>
           </div>
         </nav>
         <div className="row">
@@ -46,10 +80,6 @@ class App extends React.Component {
     );
   }
 }
-
-// Initialize the state of App to keep track of all the videos
-// in the video list and the current video in the player.
-// Pass this state down as props to its children components. Continue to use the example data.
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
