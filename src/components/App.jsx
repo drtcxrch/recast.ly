@@ -22,36 +22,19 @@ class App extends React.Component {
     this.videoListUpdater('are cats better than dogs');
   }
 
-  // videoListUpdater (text) {
-  //   var dataForHomePage = function (callback = () => { })  {
-  //      return (
-  //        searchYouTube({key: 'AIzaSyB6NNEJunt9rCC9A7t2MZmJbTWwyDCIONQ', query: text, max: 10}, (dataForHomePage) => dataForHomePage)
-  //      )
-  //      callback()
-  //   }
-  //      setTimeout(() => {this.setState({
-  //        allVideos: dataForHomePage,
-  //        currentVideo: dateForHomePage[0]
-  //       })}, 5000)
-  //     }
-  // }
-
   videoListUpdater (text) {
     var dataForHomePage;
 
-    this.props.searchYouTube({ key: 'AIzaSyCa_Wy-nLb23Yf4G3U5TkJacUYK2-PK3js', query: text, max: 10}, (video) => {
+    this.props.searchYouTube({ key: YOUTUBE_API_KEY, query: text}, (video) => {
       dataForHomePage = video;
       this.setState({
         allVideos: dataForHomePage,
         currentVideo: dataForHomePage[0]
       });
+
     });
 
-  //   setTimeout(() => {this.setState({
-  //     allVideos: dataForHomePage,
-  //     currentVideo: dateForHomePage[0]
-  //    })}, 500)
-  //  };
+
   }
 
   toggleClick (video) {
@@ -65,7 +48,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><Search search={this.props.searchYouTube}/></div>
+            <div><Search search={this.props.searchYouTube} searchText={this.videoListUpdater}/></div>
           </div>
         </nav>
         <div className="row">
