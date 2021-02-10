@@ -31,10 +31,7 @@ class App extends React.Component {
         allVideos: dataForHomePage,
         currentVideo: dataForHomePage[0]
       });
-
     });
-
-
   }
 
   toggleClick (video) {
